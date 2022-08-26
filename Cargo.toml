@@ -1,0 +1,2 @@
+[workspace]
+members = ["cathode-tube", "ray_format"]
