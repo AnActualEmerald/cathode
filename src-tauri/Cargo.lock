@@ -245,6 +245,7 @@ name = "cathode-tube"
 version = "0.0.0"
 dependencies = [
  "cpal",
+ "ray_format",
  "serde",
  "serde_json",
  "tauri",
@@ -365,6 +366,18 @@ checksum = "35ed6e9d84f0b51a7f52daf1c7d71dd136fd7a3f41a8462b8cdb8c78d920fad4"
 dependencies = [
  "bytes",
  "memchr",
+]
+
+[[package]]
+name = "compression"
+version = "0.1.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3a82b366ae14633c67a1cbb4aa3738210a23f77d2868a0fd50faa23a956f9ec4"
+dependencies = [
+ "cfg-if",
+ "lazy_static",
+ "log",
+ "num-traits",
 ]
 
 [[package]]
@@ -2100,6 +2113,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "qoi"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "21259622fa9dfe4a094c4c91a1ef9963324e2453136f55ad5b05a8850e6c6d19"
+dependencies = [
+ "bytemuck",
+]
+
+[[package]]
 name = "quote"
 version = "1.0.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2205,6 +2227,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ed7e3d950b66e19e0c372f3fa3fbbcf85b1746b571f74e0c2af6042a5c93420a"
 dependencies = [
  "cty",
+]
+
+[[package]]
+name = "ray_format"
+version = "0.1.0"
+dependencies = [
+ "compression",
+ "qoi",
 ]
 
 [[package]]
