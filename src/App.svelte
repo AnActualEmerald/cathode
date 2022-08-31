@@ -1,9 +1,13 @@
 <script lang="ts">
   import MainView from "./views/main.svelte"
+
+  //TODO: load config
+
 </script>
 
-<MainView />
-
+<main style:background-color="blue">
+  <MainView />
+</main>
 
 <style>
 :global(body) {
