@@ -18,6 +18,9 @@
         "readDir": true,
         "createDir": true,
         "writeFile": true
+      },
+      "window": {
+        "setDecorations": true
       }
     },
     "bundle": {

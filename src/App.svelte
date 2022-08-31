@@ -1,9 +1,12 @@
 <script lang="ts">
+  import MainView from "./views/main.svelte"
 </script>
 
-<main class="container">
+<MainView />
 
-</main>
 
 <style>
+:global(body) {
+  overflow: hidden;
+}
 </style>
