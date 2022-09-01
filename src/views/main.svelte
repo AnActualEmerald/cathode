@@ -1,11 +1,13 @@
 <script lang="ts">
-  import { appWindow } from "@tauri-apps/api/window";
+  import { appWindow, PhysicalSize } from "@tauri-apps/api/window";
   import { onMount } from "svelte";
   import { fly } from "svelte/transition";
+  import FramePreview from "../components/FramePreview.svelte";
 
   let transparent = false;
 
   onMount(async () => {
+    await appWindow.setMinSize(new PhysicalSize(720, 600));
     await appWindow.onFocusChanged(({ payload: focused }) => {
       transparent = !focused;
     });
@@ -15,19 +17,23 @@
 <div class="container" class:transparent>
   {#if !transparent}
   <div transition:fly="{{ duration: 200, x: -200, opacity: 100}}" class="frames" > 
-    <p> 1 </p>
-    <p> 2 </p>
-    <p> 3 </p>
-    <p> 4 </p>
+      {#each [0, 1, 2, 3] as i}
+        <FramePreview index={i} />
+      {/each}
   </div>
   {/if}
 </div>
 
 <style>
   .frames {
+    align-items: left;
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 5vh;
+    left: 30px;
+    bottom: 5vh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 }
 
 

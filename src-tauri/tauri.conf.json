@@ -20,7 +20,10 @@
         "writeFile": true
       },
       "window": {
-        "setDecorations": true
+        "setMinSize": true,
+        "setMaxSize": true,
+        "minimize": true,
+        "unminimize": true
       }
     },
     "bundle": {

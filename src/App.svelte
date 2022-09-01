@@ -5,7 +5,7 @@
 
 </script>
 
-<main style:background-color="blue">
+<main style:background-color="lightblue">
   <MainView />
 </main>
 
