@@ -2,13 +2,21 @@
 	import { onMount } from "svelte";
 	import { appWindow } from "@tauri-apps/api/window";
 
-	let src = "images/test.png";
+	//Replace with a store in the future
+	const images = [
+		"images/1.png",
+		"images/3.png",
+		"images/2.png",
+		"images/4.png",
+	];
+
+	let src = "";
 	let buf = 0;
 	let open = false;
 	let closed = false;
 	let blink = false;
 	let inAnim = "jump-in";
-	let outAnim = "jump-out";
+	let outAnim = "none";
 
 	$: {
 		if (buf > 50) {
@@ -17,6 +25,20 @@
 		} else {
 			open = false;
 			closed = true;
+		}
+	}
+
+	$: {
+		if (closed) {
+			src = images[0];
+		} else if (open) {
+			src = images[2];
+		}
+
+		if (blink && closed) {
+			src = images[1] ? images[1] : images[0];
+		} else if (blink && open) {
+			src = images[3] ? images[3] : images[2];
 		}
 	}
 
@@ -38,7 +60,6 @@
 </script>
 
 <img {src} alt="tuber" class:open class:closed class="{inAnim} {outAnim}" />
-<p>{buf}</p>
 
 <style lang="scss">
 	@keyframes jump-out {
