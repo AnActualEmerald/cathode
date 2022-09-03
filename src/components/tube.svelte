@@ -7,6 +7,8 @@
 	let open = false;
 	let closed = false;
 	let blink = false;
+	let inAnim = "jump-in";
+	let outAnim = "jump-out";
 
 	$: {
 		if (buf > 50) {
@@ -35,7 +37,7 @@
 	});
 </script>
 
-<img {src} alt="tuber" class:open class:closed />
+<img {src} alt="tuber" class:open class:closed class="{inAnim} {outAnim}" />
 <p>{buf}</p>
 
 <style lang="scss">
@@ -45,7 +47,7 @@
 		}
 
 		50% {
-			transform: translateY(-55%);
+			transform: translateY(-52%);
 		}
 
 		100% {
@@ -59,13 +61,14 @@
 		}
 
 		50% {
-			transform: translateY(-55%);
+			transform: translateY(-52%);
 		}
 
 		100% {
 			transform: translateY(-50%);
 		}
 	}
+
 	img {
 		position: absolute;
 		transform: translateY(-50%);
@@ -74,13 +77,13 @@
 		width: 400px;
 	}
 
-	.closed {
+	.closed.jump-out {
 		animation: jump-out;
-		animation-duration: 0.3s;
+		animation-duration: 0.2s;
 	}
 
-	.open {
+	.open.jump-in {
 		animation: jump-in;
-		animation-duration: 0.3s;
+		animation-duration: 0.2s;
 	}
 </style>
