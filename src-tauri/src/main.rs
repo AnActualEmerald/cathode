@@ -13,6 +13,7 @@ use log::{trace, warn};
 use tauri::{Manager, State};
 
 mod audio;
+mod fs;
 
 const MIC_THRESHOLD: f32 = 0.5f32;
 
@@ -47,7 +48,8 @@ fn main() {
         })
         .invoke_handler(tauri::generate_handler![
             set_mic_threshold,
-            get_mic_threshold
+            get_mic_threshold,
+            fs::open_image,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

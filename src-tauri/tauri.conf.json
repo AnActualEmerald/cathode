@@ -12,6 +12,9 @@
   "tauri": {
     "macOSPrivateApi": true,
     "allowlist": {
+      "dialog": {
+        "all": true
+      },
       "fs": {
         "scope": ["$PUBLIC/*", "$CONFIG/*"],
         "readFile": true,

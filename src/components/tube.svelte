@@ -1,14 +1,7 @@
 <script lang="ts">
+	import { frames } from "../store";
 	import { onMount } from "svelte";
 	import { appWindow } from "@tauri-apps/api/window";
-
-	//Replace with a store in the future
-	const images = [
-		"images/1.png",
-		"images/3.png",
-		"images/2.png",
-		"images/4.png",
-	];
 
 	let src = "";
 	let buf = 0;
@@ -30,15 +23,15 @@
 
 	$: {
 		if (closed) {
-			src = images[0];
+			src = $frames[0];
 		} else if (open) {
-			src = images[2];
+			src = $frames[1];
 		}
 
 		if (blink && closed) {
-			src = images[1] ? images[1] : images[0];
+			src = $frames[2] ? $frames[2] : $frames[0];
 		} else if (blink && open) {
-			src = images[3] ? images[3] : images[2];
+			src = $frames[3] ? $frames[3] : $frames[1];
 		}
 	}
 
@@ -54,7 +47,7 @@
 
 		await appWindow.listen("blink", () => {
 			blink = true;
-			setTimeout(() => (blink = false), 300);
+			setTimeout(() => (blink = false), 100);
 		});
 	});
 </script>

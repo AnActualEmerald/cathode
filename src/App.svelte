@@ -9,7 +9,7 @@
   <MainView />
 </main>
 
-<style>
+<style lang="scss">
 :global(body) {
   overflow: hidden;
 }

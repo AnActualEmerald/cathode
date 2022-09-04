@@ -50,7 +50,7 @@
     align-items: left;
     position: absolute;
     top: 5vh;
-    left: 30px;
+    left: 20px;
     bottom: 5vh;
     display: flex;
     justify-content: space-between;
