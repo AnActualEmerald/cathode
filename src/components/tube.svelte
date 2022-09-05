@@ -52,7 +52,9 @@
 	});
 </script>
 
-<img {src} alt="tuber" class:open class:closed class="{inAnim} {outAnim}" />
+{#if src}
+	<img {src} alt="tuber" class:open class:closed class="{inAnim} {outAnim}" />
+{/if}
 
 <style lang="scss">
 	@keyframes jump-out {

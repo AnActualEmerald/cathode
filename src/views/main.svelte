@@ -45,6 +45,8 @@
   <Tuber />
 </div>
 
+<svelte:body on:contextmenu|preventDefault />
+
 <style lang="scss">
   .frames {
     align-items: left;
