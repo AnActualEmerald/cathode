@@ -18,17 +18,20 @@ mod fs;
 const MIC_THRESHOLD: f32 = 0.5f32;
 
 struct MicThreshold(Arc<Mutex<f32>>);
+struct AudioLevel(Arc<Mutex<f32>>);
 
 fn main() {
     env_logger::init();
     let threshold = Arc::new(Mutex::new(MIC_THRESHOLD));
+    let level = Arc::new(Mutex::new(0.));
 
     tauri::Builder::default()
         .manage(MicThreshold(threshold.clone()))
+        .manage(AudioLevel(level.clone()))
         .setup(|app| {
             let window = app.get_window("main").unwrap();
             tauri::async_runtime::spawn(async move {
-                monitor(window, threshold).await;
+                monitor(window, threshold, level).await;
             });
 
             let window = app.get_window("main").unwrap();
@@ -49,6 +52,7 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
             set_mic_threshold,
             get_mic_threshold,
+            get_audio_level,
             fs::open_image,
         ])
         .run(tauri::generate_context!())
@@ -63,4 +67,9 @@ fn set_mic_threshold(threshold: f32, current: State<'_, MicThreshold>) {
 #[tauri::command]
 fn get_mic_threshold(current: State<'_, MicThreshold>) -> f32 {
     *current.0.lock().unwrap()
+}
+
+#[tauri::command]
+fn get_audio_level(level: State<'_, AudioLevel>) -> f32 {
+    *level.0.lock().unwrap()
 }

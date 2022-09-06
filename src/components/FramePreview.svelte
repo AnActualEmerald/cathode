@@ -1,6 +1,8 @@
 <script lang="ts">
   import { frames } from "../store";
   import { invoke } from "@tauri-apps/api";
+  import { fade } from "svelte/transition";
+  import Context from "../components/context.svelte";
   export let index: number;
 
   let menuTimeout: NodeJS.Timeout | null = null;
@@ -21,22 +23,30 @@
   //TODO: load frame from ray
 </script>
 
-<div
-  class="preview"
-  on:click={openImage}
-  on:contextmenu={openImage}
-  on:mouseenter={() =>
-    (menuTimeout = setTimeout(() => (showMenu = true), 1000))}
-  on:mouseleave={() => {
-    if (menuTimeout) {
-      clearTimeout(menuTimeout);
-    }
-    showMenu = false;
-  }}
->
-  <p>{showMenu}</p>
-  {#if src}
-    <img {src} alt="Frame {{ index }}" />
+<div class="box">
+  <div
+    class="preview"
+    on:click={openImage}
+    on:contextmenu={openImage}
+    on:mouseenter={() =>
+      (menuTimeout = setTimeout(() => (showMenu = true), 200))}
+    on:mouseleave={() => {
+      if (menuTimeout) {
+        clearTimeout(menuTimeout);
+      }
+      showMenu = false;
+    }}
+  >
+    {#if src}
+      <img {src} alt="Frame {{ index }}" />
+    {/if}
+  </div>
+  {#if showMenu}
+    <div transition:fade={{ duration: 50 }} class="context">
+      <Context>
+        <p>Context Menu</p>
+      </Context>
+    </div>
   {/if}
 </div>
 
@@ -53,6 +63,14 @@
     background-color: $bg;
     width: 20vh;
     height: 20vh;
+  }
+
+  .box {
+    gap: 10px;
+    display: flex;
+    .context {
+      align-self: center;
+    }
   }
 
   img {

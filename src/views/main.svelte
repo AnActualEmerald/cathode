@@ -8,6 +8,7 @@
 
   let transparent = false;
   let threshold = 0.0;
+  let level = 0.0;
 
   onMount(async () => {
     await appWindow.setMinSize(new PhysicalSize(720, 600));
@@ -18,15 +19,15 @@
     setInterval(async () => {
       threshold = await invoke("get_mic_threshold");
     }, 500);
-    // setInterval(async () => {
-    //   await invoke("set_mic_threshold", {
-    //     threshold: (threshold + 0.2) % 1.0,
-    //   });
-    // }, 1000);
+
+    setInterval(async () => {
+      level = await invoke("get_audio_level");
+    }, 50);
   });
 </script>
 
 <div class="container" class:transparent>
+  <Tuber />
   {#if !transparent}
     <div
       transition:fly={{ duration: 200, x: -200, opacity: 100 }}
@@ -39,10 +40,9 @@
 
     <div transition:fly={{ duration: 200, x: 200, opacity: 100 }} class="audio">
       <p>{threshold.toPrecision(2).toString()}</p>
+      <p>{(level * 100).toPrecision(3).toString()}</p>
     </div>
   {/if}
-
-  <Tuber />
 </div>
 
 <svelte:body on:contextmenu|preventDefault />
@@ -62,6 +62,7 @@
   .audio {
     position: absolute;
     display: flex;
+    gap: 10px;
     bottom: 5vh;
     top: 5vh;
     right: 30px;
