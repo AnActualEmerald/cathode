@@ -3,7 +3,7 @@
     "beforeDevCommand": "npm run dev",
     "beforeBuildCommand": "npm run build",
     "devPath": "http://localhost:1420",
-    "distDir": "../dist"
+    "distDir": "../src-svelte/dist"
   },
   "package": {
     "productName": "cathode-tube",
